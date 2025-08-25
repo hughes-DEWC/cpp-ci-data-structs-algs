@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "cpp",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": "../"
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {}
+	},
+	// uncomment if the app/source directory is in a sub folder
+	// "workspaceMount": "source=${localWorkspaceFolder}/myApp,target=/workspace,type=bind",
+	// "workspaceFolder": "/workspace",
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+		  "extensions": [
+			"ms-vscode.cpptools-extension-pack",
+			// optional
+			"ms-azuretools.vscode-containers",
+			"GitHub.vscode-github-actions",
+			"eamodio.gitlens",
+			"redhat.vscode-yaml",
+			"redhat.vscode-xml",
+			"ecmel.vscode-html-css",
+			"bierner.markdown-mermaid",
+			"esbenp.prettier-vscode",
+			"mechatroner.rainbow-csv",
+			"editorconfig.editorconfig"
+		],
+		  "settings": {
+			"[cpp]": {
+			  "editor.defaultFormatter": "ms-vscode.cpptools",
+			},
+			 "editor.tabSize": 4,
+			 "workbench.tree.indent": 14
+		}
+	  }
+	}
+}

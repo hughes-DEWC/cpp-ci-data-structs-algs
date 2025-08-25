@@ -1,0 +1,48 @@
+name: CPP CI
+description: 'Builds, tests, and pushes a C++ image'
+
+inputs:
+  source_dir:
+    description: 'Source directory for the c++ application'
+    required: true
+    default: "."
+  build_system:
+    description: 'C build system to use'
+    default: 'Ninja'
+    
+
+
+runs:
+  using: 'composite'
+  steps:
+
+    - name: Extract branch name
+      id: branch-names
+      shell: bash
+      run: echo "current_branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0   
+
+    - name: Validate conventional commits
+      uses: wagoid/commitlint-github-action@v6    
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y build-essential cmake meson ninja-build git libboost-dev libboost-system-dev
+      shell: bash
+
+    - name: Configure CMake
+      run: cmake -S ${{ inputs.source_dir }} -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Release -G "${{ inputs.build_system }}"
+      shell: bash
+
+    - name: Build
+      run: |
+        cmake --build build --config Release
+      shell: bash
+
+    - name: Test with ctest
+      run: ctest --test-dir build --build-config Release --output-on-failure
+      shell: bash

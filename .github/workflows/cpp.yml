@@ -1,0 +1,30 @@
+name: CPP CI Pipeline
+
+on: [push]
+
+env:
+  PROJECT_DIR: "."
+  BUILD_SYSTEM: "Ninja"
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+      packages: write
+      actions: read
+      security-events: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Run Custom CPP CI action
+      uses: ./.github/actions/cpp
+      with: 
+        source_dir:  ${{ env.PROJECT_DIR }}
+        build_system: ${{env.BUILD_SYSTEM}}
