@@ -29,3 +29,7 @@ Go to main.cpp add a breakpoint, then go to cmake extension, Debug.
 ### Run Tests
 
 Go to the cmake extension, Test
+
+### git commits
+
+The Github actions requires git commits to using [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
