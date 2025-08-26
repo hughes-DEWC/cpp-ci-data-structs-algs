@@ -1,4 +1,8 @@
-# cpp-ci-example
+# cpp-ci-data-structs-alg
+
+This repository contains worked examples from the Data Structures and Algorithms C++ course on Udemy captured in the dsa_cpp_course directory. For further details see this link https://www.udemy.com/course/data-structures-algorithms-using-c-zero-to-mastery/?couponCode=25BBPMXNVD20CTRL
+
+Additionally the original usage guide on setting up the cpp-ci-example pipeline is contained below.
 
 ## Usage:
 
