@@ -57,3 +57,4 @@ build/*
 .ninja*
 build.ninja
 *.tcl
+.vscode/*
