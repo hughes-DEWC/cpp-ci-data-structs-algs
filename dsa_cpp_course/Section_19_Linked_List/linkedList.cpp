@@ -137,6 +137,30 @@ Node* insertIthNode(Node *head, int data, int i){
     return copyHead;
 }
 
+// With Memory Leak (not deleting stranded nodes)
+Node* DeleteIthNode(Node *head, int i){
+
+    if(i<0){
+        return head;
+    }
+
+    if(i==0 && head){
+        return head->next;      // returns address of second node (deleting first one) 
+    }
+
+    Node* curr = head;
+    int count = 1;
+    while(count<=i-1 && curr!=NULL){
+        curr = curr->next;
+        count++;
+    }
+    if(curr && curr->next){
+        curr->next = curr->next->next;
+        return head;
+    }
+    return head;
+}
+
 int main(){
     // Static objects
     // Node n1(1);
@@ -168,9 +192,11 @@ int main(){
     cout<<"Length is: "<<len<<endl;
 
     int i,data;
-    cin>>i>>data;
+    // cin>>i>>data;
+    cin>>i;
     // printIthNode(head,i);
-    head = insertIthNode(head, data, i);
+    // head = insertIthNode(head, data, i);
+    head = DeleteIthNode(head,i);
     print(head);
 
     return 0;
