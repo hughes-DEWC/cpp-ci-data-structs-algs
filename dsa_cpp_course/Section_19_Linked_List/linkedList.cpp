@@ -145,7 +145,7 @@ Node* DeleteIthNode(Node *head, int i){
     }
 
     if(i==0 && head){
-        return head->next;      // returns address of second node (deleting first one) 
+        return head->next;      // returns address of second node (stranding first one) 
     }
 
     Node* curr = head;
@@ -156,6 +156,36 @@ Node* DeleteIthNode(Node *head, int i){
     }
     if(curr && curr->next){
         curr->next = curr->next->next;
+        return head;
+    }
+    return head;
+}
+
+// Without memory leak
+Node* DeleteIthNode2(Node *head, int i){
+
+    if(i<0){
+        return head;
+    }
+
+    if(i==0 && head){
+        Node *newHead = head->next;
+        head->next = NULL;              // isolate node
+        delete head;                    // delete node
+        return newHead;      // returns address of second node (deleting first one) 
+    }
+
+    Node* curr = head;
+    int count = 1;
+    while(count<=i-1 && curr!=NULL){
+        curr = curr->next;
+        count++;
+    }
+    if(curr && curr->next){
+        Node *temp = curr->next;
+        curr->next = curr->next->next;
+        temp->next = NULL;              // isolate node
+        delete temp;                    // delete node
         return head;
     }
     return head;
@@ -196,7 +226,7 @@ int main(){
     cin>>i;
     // printIthNode(head,i);
     // head = insertIthNode(head, data, i);
-    head = DeleteIthNode(head,i);
+    head = DeleteIthNode2(head,i);
     print(head);
 
     return 0;
